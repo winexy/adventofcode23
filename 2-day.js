@@ -22,24 +22,18 @@ for (const line of getLines('./2-input.txt')) {
       }, {});
   });
 
-  const isValid = sets.every(set => {
-    for (const color in set) {
-      switch (color) {
-        case 'red':
-          if (set[color] > MAX_RED) return false;
-        case 'green':
-          if (set[color] > MAX_GREEN) return false;
-        case 'blue':
-          if (set[color] > MAX_BLUE) return false;
-      }
-    }
+  const min = sets.reduce(
+    (acc, set) => {
+      acc.red = Math.max(acc.red, set.red ?? 0);
+      acc.green = Math.max(acc.green, set.green ?? 0);
+      acc.blue = Math.max(acc.blue, set.blue ?? 0);
 
-    return true;
-  });
+      return acc;
+    },
+    { red: 0, green: 0, blue: 0 }
+  );
 
-  if (isValid) {
-    count += game;
-  }
+  count += min.red * min.green * min.blue;
 }
 
 console.log({ count });
