@@ -6,7 +6,7 @@ export function getLines(pathToFile) {
 }
 
 export class Solution {
-  constructor(day, debug) {
+  constructor(day, debug = false) {
     this.debug = debug;
     this.lines = getLines(`./${day}-input.txt`)
   }
